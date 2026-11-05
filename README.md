@@ -12,8 +12,8 @@ A full-stack engineering blog, portfolio case-study platform, and Markdown publi
 | **`nginx`** | Nginx 1.27 Alpine | `http://localhost:8000` | Reverse proxy for Laravel API (`/api/v1`) |
 | **`php`** | PHP 8.3 FPM + Redis + GD | Internal `:9000` | Laravel 11 API container (auto-migrates & seeds on start) |
 | **`scheduler`** | PHP 8.3 CLI (`schedule:work`) | Background | Runs `php artisan views:flush` every 5 minutes |
-| **`postgres`** | PostgreSQL 16 Alpine | `localhost:5432` | Primary relational database (`blog`) |
-| **`redis`** | Redis 7 Alpine | `localhost:6379` | Cache buffer for read counts, sessions & queues |
+| **`postgres`** | PostgreSQL 16 Alpine | internal only (`docker compose exec postgres psql -U blog`) | Primary relational database (`blog`) |
+| **`redis`** | Redis 7 Alpine | internal only (`docker compose exec redis redis-cli`) | Cache buffer for read counts, sessions & queues |
 
 ---
 

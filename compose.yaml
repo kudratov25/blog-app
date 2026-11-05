@@ -16,6 +16,7 @@ services:
     build:
       context: ./docker/php
       dockerfile: Dockerfile
+    image: blog-app-php
     volumes:
       - ./api:/var/www/api
     environment:
@@ -45,9 +46,8 @@ services:
       - blog
 
   scheduler:
-    build:
-      context: ./docker/php
-      dockerfile: Dockerfile
+    image: blog-app-php   # reuses the image built by the php service
+    pull_policy: never
     entrypoint: ["sh", "-c", "sleep 10 && php artisan schedule:work"]
     volumes:
       - ./api:/var/www/api
@@ -79,8 +79,6 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "127.0.0.1:${DB_FORWARD_PORT:-5432}:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-blog}"]
       interval: 5s
@@ -91,8 +89,6 @@ services:
 
   redis:
     image: redis:7-alpine
-    ports:
-      - "127.0.0.1:${REDIS_FORWARD_PORT:-6379}:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s

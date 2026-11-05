@@ -1,8 +1,12 @@
-.PHONY: up down restart logs flush-views migrate fresh shell-api shell-web
+.PHONY: up build down restart logs flush-views migrate fresh shell-api shell-web
 
-# Start everything (builds images, runs migrations + seeds automatically)
+# Start everything (builds missing images, runs migrations + seeds automatically)
 up:
-	docker compose up -d --build
+	docker compose up -d
+
+# Rebuild images (run after changing a Dockerfile or package.json)
+build:
+	docker compose build
 
 # Stop all containers
 down:

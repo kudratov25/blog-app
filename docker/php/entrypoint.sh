@@ -16,14 +16,16 @@ fi
 
 # 3. Ensure storage & cache directories are writable
 mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache
-chmod -R 775 storage bootstrap/cache || true
+find storage bootstrap/cache -type d -exec chmod 775 {} + 2>/dev/null || true
+find storage bootstrap/cache -type f -exec chmod 664 {} + 2>/dev/null || true
 
 # 4. Run database migrations
 echo "Running database migrations..."
 php artisan migrate --force
 
 # 5. Seed initial data if users table is empty
-USER_COUNT=$(php artisan tinker --execute="echo \App\Models\User::count();" 2>/dev/null | tr -d '[:space:]' || echo "0")
+# (plain PDO query instead of booting artisan tinker, which is slow)
+USER_COUNT=$(php -r 'try { $p = new PDO("pgsql:host=".getenv("DB_HOST").";port=".getenv("DB_PORT").";dbname=".getenv("DB_DATABASE"), getenv("DB_USERNAME"), getenv("DB_PASSWORD")); echo $p->query("SELECT COUNT(*) FROM users")->fetchColumn(); } catch (Throwable $e) { echo 0; }' 2>/dev/null || echo "0")
 if [ "$USER_COUNT" = "0" ] || [ -z "$USER_COUNT" ]; then
     echo "Seeding initial database..."
     php artisan db:seed --force

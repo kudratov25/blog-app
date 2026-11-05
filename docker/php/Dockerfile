@@ -1,4 +1,6 @@
-FROM php:8.3-fpm-alpine
+# Pinned to the latest PHP 8.4 security release (8.4.27, 21 Oct 2026).
+# composer.lock requires PHP >= 8.4.1. Bump the patch version when a new security release ships.
+FROM php:8.4.27-fpm-alpine
 
 RUN apk add --no-cache \
     postgresql-dev \
