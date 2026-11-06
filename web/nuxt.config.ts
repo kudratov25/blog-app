@@ -5,7 +5,15 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@vueuse/nuxt',
     '@pinia/nuxt',
+    '@nuxtjs/color-mode',
   ],
+  // Day/night theme: follows the OS until the visitor picks one (saved in localStorage).
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    classSuffix: '',
+    storageKey: 'blog-color-mode',
+  },
   runtimeConfig: {
     apiBase: process.env.NUXT_API_BASE || 'http://127.0.0.1:8000/api/v1',
     public: {
@@ -41,7 +49,8 @@ export default defineNuxtConfig({
       ],
       meta: [
         { name: 'description', content: 'Engineering notes on backend architecture, databases, and scalable systems.' },
-        { name: 'theme-color', content: '#f3f4f6' },
+        { name: 'theme-color', content: '#f3f4f6', media: '(prefers-color-scheme: light)' },
+        { name: 'theme-color', content: '#0d0f14', media: '(prefers-color-scheme: dark)' },
       ],
     },
   },

@@ -31,8 +31,9 @@ const authorEmail = computed(() => settings.value?.author_email || '')
           :href="githubUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="hover:text-gray-900 transition-colors"
+          class="inline-flex items-center gap-1.5 hover:text-gray-900 transition-colors"
         >
+          <SocialIcon name="github" />
           GitHub
         </a>
         <a
@@ -40,8 +41,9 @@ const authorEmail = computed(() => settings.value?.author_email || '')
           :href="linkedinUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="hover:text-gray-900 transition-colors"
+          class="inline-flex items-center gap-1.5 hover:text-gray-900 transition-colors"
         >
+          <SocialIcon name="linkedin" />
           LinkedIn
         </a>
         <a
@@ -49,8 +51,9 @@ const authorEmail = computed(() => settings.value?.author_email || '')
           :href="telegramUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="hover:text-gray-900 transition-colors"
+          class="inline-flex items-center gap-1.5 hover:text-gray-900 transition-colors"
         >
+          <SocialIcon name="telegram" />
           Telegram
         </a>
       </div>

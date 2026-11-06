@@ -11,7 +11,7 @@ function handleError() {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-[#fafafa] px-4 text-center">
+  <div class="min-h-screen flex items-center justify-center bg-page px-4 text-center">
     <div class="max-w-md space-y-4">
       <div class="text-4xl font-semibold text-zinc-300">
         {{ error?.statusCode || 404 }}

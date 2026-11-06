@@ -37,7 +37,7 @@ useHead({
         </p>
       </div>
 
-      <div class="bg-gray-900 text-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between">
+      <div class="theme-fixed bg-gray-900 text-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between">
         <div class="space-y-4">
           <div class="text-xs font-semibold uppercase tracking-wider text-gray-400">
             Connect
@@ -65,8 +65,9 @@ useHead({
             :href="settings.author_github"
             target="_blank"
             rel="noopener noreferrer"
-            class="block w-full text-center py-2.5 rounded-xl bg-gray-800 text-gray-200 text-xs font-semibold hover:bg-gray-700 transition-colors"
+            class="flex w-full items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-800 text-gray-200 text-xs font-semibold hover:bg-gray-700 transition-colors"
           >
+            <SocialIcon name="github" />
             GitHub Profile &nearr;
           </a>
           <a
@@ -74,8 +75,9 @@ useHead({
             :href="settings.author_linkedin"
             target="_blank"
             rel="noopener noreferrer"
-            class="block w-full text-center py-2.5 rounded-xl bg-gray-800 text-gray-200 text-xs font-semibold hover:bg-gray-700 transition-colors"
+            class="flex w-full items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-800 text-gray-200 text-xs font-semibold hover:bg-gray-700 transition-colors"
           >
+            <SocialIcon name="linkedin" />
             LinkedIn Profile &nearr;
           </a>
           <a
@@ -83,8 +85,9 @@ useHead({
             :href="settings.author_telegram"
             target="_blank"
             rel="noopener noreferrer"
-            class="block w-full text-center py-2.5 rounded-xl bg-gray-800 text-gray-200 text-xs font-semibold hover:bg-gray-700 transition-colors"
+            class="flex w-full items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-800 text-gray-200 text-xs font-semibold hover:bg-gray-700 transition-colors"
           >
+            <SocialIcon name="telegram" />
             Telegram &nearr;
           </a>
         </div>

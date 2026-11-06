@@ -8,7 +8,7 @@ useHead({
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-[#f3f4f6] px-4 py-12 font-sans">
+  <div class="min-h-screen flex items-center justify-center bg-page px-4 py-12 font-sans">
     <div class="w-full max-w-sm">
       <div class="mb-8">
         <NuxtLink to="/" class="text-xs font-semibold text-gray-500 hover:text-gray-900 transition-colors">

@@ -56,7 +56,7 @@ useHead({
       </div>
 
       <!-- Right Bento Card (Author & Connect from Backend Settings) -->
-      <div class="bg-gray-900 text-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between">
+      <div class="theme-fixed bg-gray-900 text-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between">
         <div class="space-y-4">
           <div class="text-xs font-semibold uppercase tracking-wider text-gray-400">
             {{ settings.author_name || 'About' }}
@@ -72,33 +72,39 @@ useHead({
         </div>
 
         <div class="pt-6 mt-6 border-t border-gray-800 flex items-center justify-between text-xs text-gray-400">
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-4">
             <a
               v-if="settings.author_github"
               :href="settings.author_github"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-gray-300 hover:text-white font-semibold transition-colors"
+              class="p-1 -m-1 text-gray-300 hover:text-white transition-colors"
+              title="GitHub"
+              aria-label="GitHub"
             >
-              GitHub
+              <SocialIcon name="github" class="!w-[18px] !h-[18px]" />
             </a>
             <a
               v-if="settings.author_linkedin"
               :href="settings.author_linkedin"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-gray-300 hover:text-white font-semibold transition-colors"
+              class="p-1 -m-1 text-gray-300 hover:text-white transition-colors"
+              title="LinkedIn"
+              aria-label="LinkedIn"
             >
-              LinkedIn
+              <SocialIcon name="linkedin" class="!w-[18px] !h-[18px]" />
             </a>
             <a
               v-if="settings.author_telegram"
               :href="settings.author_telegram"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-gray-300 hover:text-white font-semibold transition-colors"
+              class="p-1 -m-1 text-gray-300 hover:text-white transition-colors"
+              title="Telegram"
+              aria-label="Telegram"
             >
-              Telegram
+              <SocialIcon name="telegram" class="!w-[18px] !h-[18px]" />
             </a>
           </div>
           <NuxtLink to="/contact" class="text-white font-semibold hover:underline">

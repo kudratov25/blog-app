@@ -2,16 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------ theme
+ * Colors are RGB triplets used by tailwind.config.ts (rgb(var(--c-x) / a)).
+ * .dark (set on <html> by @nuxtjs/color-mode) swaps the neutral scale.
+ * .theme-fixed keeps the light-theme values inside it (dark accent cards).
+ */
+:root,
+.dark .theme-fixed {
+  --c-page: 243 244 246;
+  --c-white: 255 255 255;
+  --c-gray-50: 249 250 251;
+  --c-gray-100: 243 244 246;
+  --c-gray-200: 229 231 235;
+  --c-gray-300: 209 213 219;
+  --c-gray-400: 156 163 175;
+  --c-gray-500: 107 114 128;
+  --c-gray-600: 75 85 99;
+  --c-gray-700: 55 65 81;
+  --c-gray-800: 31 41 55;
+  --c-gray-900: 17 24 39;
+  --c-gray-950: 3 7 18;
+
+  --c-red-50: 254 242 242;      --c-red-100: 254 226 226;     --c-red-200: 254 202 202;
+  --c-red-600: 220 38 38;       --c-red-700: 185 28 28;       --c-red-800: 153 27 27;
+  --c-emerald-50: 236 253 245;  --c-emerald-100: 209 250 229; --c-emerald-200: 167 243 208;
+  --c-emerald-600: 5 150 105;   --c-emerald-700: 4 120 87;    --c-emerald-800: 6 95 70;
+  --c-amber-50: 255 251 235;    --c-amber-100: 254 243 199;   --c-amber-200: 253 230 138;
+  --c-amber-600: 217 119 6;     --c-amber-700: 180 83 9;      --c-amber-800: 146 64 14;
+  --c-indigo-50: 238 242 255;   --c-indigo-100: 224 231 255;  --c-indigo-200: 199 210 254;
+  --c-indigo-600: 79 70 229;    --c-indigo-700: 67 56 202;    --c-indigo-800: 55 48 163;
+  color-scheme: light;
+}
+
+.dark {
+  --c-page: 13 15 20;
+  --c-white: 22 25 32;
+  --c-gray-50: 28 31 40;
+  --c-gray-100: 34 38 48;
+  --c-gray-200: 46 51 63;
+  --c-gray-300: 66 72 86;
+  --c-gray-400: 112 119 133;
+  --c-gray-500: 150 157 170;
+  --c-gray-600: 177 183 194;
+  --c-gray-700: 204 209 217;
+  --c-gray-800: 226 229 234;
+  --c-gray-900: 241 243 246;
+  --c-gray-950: 250 251 252;
+
+  --c-red-50: 52 22 26;         --c-red-100: 70 26 31;        --c-red-200: 100 36 42;
+  --c-red-600: 248 113 113;     --c-red-700: 252 165 165;     --c-red-800: 254 202 202;
+  --c-emerald-50: 14 42 33;     --c-emerald-100: 18 58 44;    --c-emerald-200: 27 86 64;
+  --c-emerald-600: 52 211 153;  --c-emerald-700: 110 231 183; --c-emerald-800: 167 243 208;
+  --c-amber-50: 46 35 12;       --c-amber-100: 66 48 14;      --c-amber-200: 96 70 20;
+  --c-amber-600: 251 191 36;    --c-amber-700: 252 211 77;    --c-amber-800: 253 230 138;
+  --c-indigo-50: 30 32 66;      --c-indigo-100: 38 41 84;     --c-indigo-200: 55 60 120;
+  --c-indigo-600: 129 140 248;  --c-indigo-700: 165 180 252;  --c-indigo-800: 199 210 254;
+  color-scheme: dark;
+}
+
+/* dark accent cards stay dark but need an edge against the dark page */
+.dark .theme-fixed {
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+
+/* solid red buttons keep a red background with white text in dark mode */
+.dark .bg-red-600,
+.dark .hover\:bg-red-600:hover { background-color: rgb(220 38 38); }
+.dark .hover\:bg-red-700:hover { background-color: rgb(185 28 28); }
+.dark .bg-red-600 { color: #fff; }
+
+html, body {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 @layer base {
   html {
-    @apply antialiased bg-[#f3f4f6] text-gray-900 font-sans;
+    @apply antialiased bg-page text-gray-900 font-sans;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply min-h-screen flex flex-col font-sans bg-[#f3f4f6] text-gray-900 overflow-x-hidden;
+    @apply min-h-screen flex flex-col font-sans bg-page text-gray-900 overflow-x-hidden;
   }
 
   ::selection {
@@ -66,18 +139,18 @@ pre code.hljs {
 
 /* Prose typography */
 .prose {
-  color: #374151;
+  color: rgb(var(--c-gray-700));
   font-size: 1.0625rem;
   line-height: 1.85;
 }
 
 .prose p {
-  color: #374151;
+  color: rgb(var(--c-gray-700));
   margin-bottom: 1.4rem;
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4 {
-  color: #111827;
+  color: rgb(var(--c-gray-900));
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -96,20 +169,20 @@ pre code.hljs {
 }
 
 .prose strong {
-  color: #111827;
+  color: rgb(var(--c-gray-900));
   font-weight: 600;
 }
 
 .prose a {
-  color: #111827;
+  color: rgb(var(--c-gray-900));
   text-decoration: underline;
   text-underline-offset: 3px;
   font-weight: 600;
 }
 
 .prose code:not(pre code) {
-  color: #111827;
-  background: #f3f4f6;
+  color: rgb(var(--c-gray-900));
+  background: rgb(var(--c-gray-100));
   padding: 0.2rem 0.45rem;
   border-radius: 0.375rem;
   font-size: 0.85em;
@@ -118,11 +191,17 @@ pre code.hljs {
 }
 
 .prose blockquote {
-  border-left: 3px solid #111827;
-  color: #4b5563;
-  background: #f9fafb;
+  border-left: 3px solid rgb(var(--c-gray-900));
+  color: rgb(var(--c-gray-600));
+  background: rgb(var(--c-gray-50));
   padding: 1rem 1.25rem;
   border-radius: 0 0.75rem 0.75rem 0;
   font-style: normal;
   margin: 1.5rem 0;
+}
+
+/* code blocks: always dark; in dark mode set them apart from the card */
+.dark pre {
+  background: #0b0d12 !important;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07);
 }

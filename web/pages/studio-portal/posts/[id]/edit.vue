@@ -163,7 +163,7 @@ useHead({
 
         <button
           type="button"
-          class="px-3.5 py-2 rounded-xl border border-red-100 bg-red-50/70 text-red-600 text-xs font-semibold hover:bg-red-600 hover:text-white hover:border-red-600 transition-all inline-flex items-center gap-1.5"
+          class="px-3.5 py-2 rounded-xl border border-red-100 bg-red-50/70 text-red-600 text-xs font-semibold hover:bg-red-600 hover:text-[#fff] hover:border-red-600 transition-all inline-flex items-center gap-1.5"
           @click="deleteArticle"
         >
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -9,6 +9,7 @@ const { user, logout } = useAuth()
     </div>
 
     <div class="flex items-center gap-3">
+      <ThemeToggle />
       <span class="text-xs text-gray-700 font-semibold">
         {{ user?.name || 'Admin' }}
       </span>

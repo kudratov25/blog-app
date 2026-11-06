@@ -52,9 +52,11 @@ const navLinks = [
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </NuxtLink>
+        <ThemeToggle />
       </nav>
 
-      <div class="flex items-center gap-2 sm:hidden">
+      <div class="flex items-center gap-1 sm:hidden">
+        <ThemeToggle />
         <NuxtLink to="/search" class="p-1.5 text-gray-600 hover:text-gray-900">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

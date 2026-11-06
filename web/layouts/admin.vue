@@ -8,7 +8,7 @@ useHead({
 </script>
 
 <template>
-  <div class="min-h-screen flex bg-[#f3f4f6] text-gray-900 font-sans">
+  <div class="min-h-screen flex bg-page text-gray-900 font-sans">
     <AdminSidebar />
     <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
       <AdminTopbar />

@@ -95,7 +95,7 @@ useHead({
             type="button"
             :disabled="flushingViews"
             title="Click to flush cached views to database now"
-            class="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white text-[10px] font-bold transition-colors"
+            class="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-[#fff] text-[10px] font-bold transition-colors"
             @click="flushBufferedViews"
           >
             +{{ stats?.buffered_views }} cached &middot; Sync

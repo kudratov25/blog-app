@@ -208,7 +208,7 @@ function handleKeydown(e: KeyboardEvent) {
 <template>
   <div
     :class="isFullscreen
-      ? 'fixed inset-0 z-50 bg-[#f3f4f6] overflow-y-auto p-4 sm:p-8'
+      ? 'fixed inset-0 z-50 bg-page overflow-y-auto p-4 sm:p-8'
       : 'space-y-5'"
   >
     <div :class="isFullscreen ? 'max-w-6xl mx-auto space-y-5' : 'space-y-5'">

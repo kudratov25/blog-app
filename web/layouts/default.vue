@@ -14,7 +14,7 @@ watch(() => route.fullPath, () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-[#f3f4f6] text-gray-900">
+  <div class="min-h-screen flex flex-col bg-page text-gray-900">
     <AppNav />
     <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
       <slot />
