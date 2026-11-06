@@ -60,9 +60,48 @@
   color-scheme: dark;
 }
 
-/* dark accent cards stay dark but need an edge against the dark page */
+/* dark accent cards: top-right to bottom-left gradient (~15% lighter at top-right) + 25% cursor hover glow */
+.theme-fixed {
+  --c-gray-900: 34 39 50;
+  --c-gray-800: 54 61 76;
+  --c-gray-700: 70 79 96;
+  --c-gray-400: 175 182 195;
+  --c-gray-300: 220 225 233;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-image: linear-gradient(to bottom left, rgb(72 80 98) 0%, rgb(34 39 50) 100%);
+  box-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.12),
+    0 4px 16px rgb(15 23 42 / 0.06);
+}
+
 .dark .theme-fixed {
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+  --c-gray-900: 25 29 38;
+  --c-gray-800: 46 52 66;
+  --c-gray-700: 62 70 86;
+  background-image: linear-gradient(to bottom left, rgb(63 70 86) 0%, rgb(25 29 38) 100%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+}
+
+.theme-fixed::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: linear-gradient(
+    var(--mdeg, 225deg),
+    transparent calc(var(--mpos, 50%) - 45%),
+    rgb(255 255 255 / 0.1) var(--mpos, 50%),
+    transparent calc(var(--mpos, 50%) + 45%)
+  );
+}
+
+.theme-fixed:hover::before {
+  opacity: 1;
 }
 
 /* solid red buttons keep a red background with white text in dark mode */
