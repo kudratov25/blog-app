@@ -13,8 +13,10 @@ const socials = computed(() => ([
   { key: 'telegram', label: 'Telegram', url: settings.value?.author_telegram },
 ] as const).filter(item => item.url))
 
-useHead({
+usePageSeo({
   title: () => settings.value?.author_name ? `About — ${settings.value.author_name}` : 'About',
+  description: () => settings.value?.author_bio || settings.value?.site_description || '',
+  type: 'profile',
 })
 </script>
 

@@ -25,15 +25,33 @@ const formattedDate = computed(() => {
 })
 
 const { settings } = useSiteSettings()
+const reqUrl = useRequestURL()
 
-useHead({
+usePageSeo({
   title: () => {
     const base = post.value.seo_title || post.value.title
     return settings.value?.author_name ? `${base} — ${settings.value.author_name}` : base
   },
-  meta: [
-    { name: 'description', content: post.value.seo_description || post.value.excerpt || '' },
-  ],
+  description: () => post.value.seo_description || post.value.excerpt || '',
+  image: () => post.value.cover?.url || null,
+  canonicalUrl: () => post.value.canonical_url || null,
+  type: 'article',
+  publishedAt: () => post.value.published_at,
+  updatedAt: () => post.value.updated_at,
+  jsonLd: () => ({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.value.seo_title || post.value.title,
+    description: post.value.seo_description || post.value.excerpt || '',
+    datePublished: post.value.published_at || undefined,
+    dateModified: post.value.updated_at || post.value.published_at || undefined,
+    url: post.value.canonical_url || `${reqUrl.origin}/articles/${post.value.slug}`,
+    image: post.value.cover?.url || `${reqUrl.origin}/avatar.webp`,
+    author: {
+      '@type': 'Person',
+      name: settings.value?.author_name || post.value.author?.name || 'Sherzod Kudratov',
+    },
+  }),
 })
 </script>
 

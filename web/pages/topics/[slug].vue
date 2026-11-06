@@ -25,10 +25,11 @@ const posts = computed(() => res.value!.data.posts.data || [])
 
 const { settings } = useSiteSettings()
 
-useHead({
+usePageSeo({
   title: () => settings.value?.author_name
     ? `${category.value.name} — ${settings.value.author_name}`
     : category.value.name,
+  description: () => category.value.description || `Articles and engineering notes filed under ${category.value.name}.`,
 })
 </script>
 

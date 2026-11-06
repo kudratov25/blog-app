@@ -17,11 +17,15 @@ const project = computed(() => res.value!.data)
 
 const { settings } = useSiteSettings()
 
-useHead({
+usePageSeo({
   title: () => {
     const base = project.value.seo_title || project.value.title
     return settings.value?.author_name ? `${base} — ${settings.value.author_name}` : base
   },
+  description: () => project.value.seo_description || project.value.summary || '',
+  image: () => project.value.cover?.url || null,
+  type: 'article',
+  updatedAt: () => project.value.updated_at,
 })
 </script>
 

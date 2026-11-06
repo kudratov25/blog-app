@@ -16,10 +16,12 @@ const projects = computed(() => projectsData.value?.data || [])
 // "Software Engineer · Backend & Systems" -> "Software Engineer"
 const authorRole = computed(() => (settings.value?.site_subtitle || '').split('·')[0].trim())
 
-useHead({
+usePageSeo({
   title: () => settings.value?.author_name
     ? `${settings.value.author_name} — ${settings.value.site_subtitle || 'Engineering Blog'}`
     : (settings.value?.site_title || 'Engineering Blog'),
+  description: () => settings.value?.site_description || settings.value?.author_bio || '',
+  type: 'website',
 })
 </script>
 

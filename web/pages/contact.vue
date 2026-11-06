@@ -62,8 +62,9 @@ async function handleSubmit() {
 
 const { settings } = useSiteSettings()
 
-useHead({
+usePageSeo({
   title: () => settings.value?.author_name ? `Contact — ${settings.value.author_name}` : 'Contact',
+  description: () => settings.value?.author_connect_text || 'Get in touch for engineering discussions, technical collaborations, and backend architecture consulting.',
 })
 </script>
 

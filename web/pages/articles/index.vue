@@ -70,8 +70,9 @@ function updateUrl() {
 
 const { settings } = useSiteSettings()
 
-useHead({
+usePageSeo({
   title: () => settings.value?.author_name ? `Articles — ${settings.value.author_name}` : 'Articles',
+  description: 'Essays and technical notes on backend architecture, databases, and systems engineering.',
 })
 </script>
 

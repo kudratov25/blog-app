@@ -11,8 +11,9 @@ const projects = computed(() => projectsData.value?.data || [])
 
 const { settings } = useSiteSettings()
 
-useHead({
+usePageSeo({
   title: () => settings.value?.author_name ? `Projects — ${settings.value.author_name}` : 'Projects',
+  description: 'Selected systems, architectural decisions, and open source engineering work.',
 })
 </script>
 
