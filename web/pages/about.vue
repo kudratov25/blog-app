@@ -7,6 +7,12 @@ onMounted(() => {
   fetchSiteSettings()
 })
 
+const socials = computed(() => ([
+  { key: 'github', label: 'GitHub', url: settings.value?.author_github },
+  { key: 'linkedin', label: 'LinkedIn', url: settings.value?.author_linkedin },
+  { key: 'telegram', label: 'Telegram', url: settings.value?.author_telegram },
+] as const).filter(item => item.url))
+
 useHead({
   title: () => settings.value?.author_name ? `About — ${settings.value.author_name}` : 'About',
 })
@@ -60,36 +66,24 @@ useHead({
           >
             Send a Message &rarr;
           </NuxtLink>
-          <a
-            v-if="settings.author_github"
-            :href="settings.author_github"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex w-full items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-800 text-gray-200 text-xs font-semibold hover:bg-gray-700 transition-colors"
+          <div
+            v-if="socials.length"
+            class="grid gap-2.5"
+            :style="{ gridTemplateColumns: `repeat(${socials.length}, minmax(0, 1fr))` }"
           >
-            <SocialIcon name="github" />
-            GitHub Profile &nearr;
-          </a>
-          <a
-            v-if="settings.author_linkedin"
-            :href="settings.author_linkedin"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex w-full items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-800 text-gray-200 text-xs font-semibold hover:bg-gray-700 transition-colors"
-          >
-            <SocialIcon name="linkedin" />
-            LinkedIn Profile &nearr;
-          </a>
-          <a
-            v-if="settings.author_telegram"
-            :href="settings.author_telegram"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex w-full items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-800 text-gray-200 text-xs font-semibold hover:bg-gray-700 transition-colors"
-          >
-            <SocialIcon name="telegram" />
-            Telegram &nearr;
-          </a>
+            <a
+              v-for="item in socials"
+              :key="item.key"
+              :href="item.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              :title="item.label"
+              class="group flex flex-col items-center justify-center gap-1.5 py-3 rounded-xl bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            >
+              <SocialIcon :name="item.key" class="!w-5 !h-5 transition-transform group-hover:-translate-y-0.5" />
+              <span class="text-[11px] font-semibold">{{ item.label }}</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -28,8 +28,11 @@ useHead({
 <template>
   <article class="max-w-3xl mx-auto bg-white rounded-3xl border border-gray-200/90 p-6 sm:p-12 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
     <div class="mb-6">
-      <NuxtLink to="/projects" class="text-xs font-semibold text-gray-500 hover:text-gray-900 transition-colors">
-        &larr; All case studies
+      <NuxtLink
+        to="/projects"
+        class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-900 transition-colors"
+      >
+        &larr; Back to projects
       </NuxtLink>
     </div>
 
@@ -61,9 +64,16 @@ useHead({
           :href="project.demo_url"
           target="_blank"
           rel="noopener noreferrer"
-          class="px-4 py-2 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors"
+          class="btn-wave inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition-colors"
         >
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" />
+          </svg>
           Live Demo &nearr;
+          <span class="btn-wave-ring" aria-hidden="true" />
+          <span class="btn-wave-ring" aria-hidden="true" />
+          <span class="btn-wave-ring" aria-hidden="true" />
         </a>
 
         <a
@@ -71,8 +81,9 @@ useHead({
           :href="project.repository_url"
           target="_blank"
           rel="noopener noreferrer"
-          class="px-4 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors"
         >
+          <SocialIcon name="github" />
           Source Code &nearr;
         </a>
       </div>

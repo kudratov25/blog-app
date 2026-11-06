@@ -13,6 +13,8 @@ const [{ data: latestPosts }, { data: projectsData }, { data: categories }] = aw
 
 const posts = computed(() => latestPosts.value?.data || [])
 const projects = computed(() => projectsData.value?.data || [])
+// "Software Engineer · Backend & Systems" -> "Software Engineer"
+const authorRole = computed(() => (settings.value?.site_subtitle || '').split('·')[0].trim())
 
 useHead({
   title: () => settings.value?.author_name
@@ -57,14 +59,28 @@ useHead({
 
       <!-- Right Bento Card (Author & Connect from Backend Settings) -->
       <div class="theme-fixed bg-gray-900 text-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between">
-        <div class="space-y-4">
-          <div class="text-xs font-semibold uppercase tracking-wider text-gray-400">
-            {{ settings.author_name || 'About' }}
+        <div class="space-y-5">
+          <div class="flex items-center gap-3.5">
+            <img
+              src="/avatar.webp"
+              :alt="settings.author_name || 'Author'"
+              width="60"
+              height="60"
+              class="w-[60px] h-[60px] rounded-full object-cover ring-2 ring-white/10 shrink-0"
+            >
+            <div class="min-w-0">
+              <div class="text-base font-bold text-white tracking-tight truncate">
+                {{ settings.author_name || 'About' }}
+              </div>
+              <div v-if="authorRole" class="text-xs text-gray-400 truncate">
+                {{ authorRole }}
+              </div>
+            </div>
           </div>
           <p class="text-sm text-gray-300 leading-relaxed line-clamp-5">
             {{ settings.author_bio || settings.site_description || 'Writing technical notes and architectural case studies.' }}
           </p>
-          <div v-if="settings.author_email" class="pt-2 text-xs text-gray-400">
+          <div v-if="settings.author_email" class="text-xs text-gray-400">
             <a :href="`mailto:${settings.author_email}`" class="text-white font-semibold hover:underline">
               {{ settings.author_email }}
             </a>
