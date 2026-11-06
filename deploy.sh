@@ -107,9 +107,9 @@ mkdir -p "$BUILD" "$RELEASES"
 rsync -a --delete --exclude node_modules --exclude .output --exclude .nuxt "$APP/web/" "$BUILD/"
 cd "$BUILD"
 LOCK_HASH=$(sha256sum package-lock.json | cut -d' ' -f1)
-if [[ ! -d node_modules || "$(cat .lock-hash 2>/dev/null)" != "$LOCK_HASH" ]]; then
+if [[ ! -d node_modules || ! -d node_modules/@tailwindcss/typography || "$(cat .lock-hash 2>/dev/null)" != "$LOCK_HASH" ]]; then
   echo "package-lock.json changed -> npm ci"
-  nice -n 19 npm ci --no-audit --no-fund --loglevel=error
+  nice -n 19 npm ci --include=dev --no-audit --no-fund --loglevel=error
   echo "$LOCK_HASH" > .lock-hash
 else
   echo "dependencies unchanged, skipping npm ci"
