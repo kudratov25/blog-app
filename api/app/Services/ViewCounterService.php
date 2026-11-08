@@ -15,8 +15,18 @@ class ViewCounterService
     private const DEDUP_TTL_SECONDS = 21600;
     private const FLUSH_INTERVAL_SECONDS = 300;
 
+    /**
+     * User-Agent fragments of crawlers, link-preview fetchers and HTTP clients.
+     * Most bots never execute the client-side view beacon; this catches the rest.
+     */
+    private const BOT_UA_PATTERN = '/bot|crawl|spider|slurp|preview|fetch|scan|monitor|headless|lighthouse|pagespeed|curl|wget|python|axios|node|go-http|java\/|okhttp|facebookexternalhit|whatsapp|telegram|discord|embedly|bitly/i';
+
     public function record(string $type, int $id, Request $request): bool
     {
+        if ($this->isBot($request)) {
+            return false;
+        }
+
         $visitorHash = $this->resolveVisitorHash($request);
         $seenKey = "views:seen:{$type}:{$id}:{$visitorHash}";
 
@@ -119,6 +129,13 @@ class ViewCounterService
                 $this->flush();
             });
         }
+    }
+
+    public function isBot(Request $request): bool
+    {
+        $ua = (string) $request->userAgent();
+
+        return $ua === '' || preg_match(self::BOT_UA_PATTERN, $ua) === 1;
     }
 
     private function resolveVisitorHash(Request $request): string

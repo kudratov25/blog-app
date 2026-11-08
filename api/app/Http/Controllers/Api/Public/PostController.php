@@ -8,6 +8,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Services\ViewCounterService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PostController extends Controller
@@ -59,16 +60,28 @@ class PostController extends Controller
         return PostListResource::collection($posts);
     }
 
-    public function show(Request $request, string $slug, ViewCounterService $viewCounter): PostResource
+    public function show(string $slug): PostResource
     {
         $post = Post::published()
             ->with(['category', 'tags', 'cover', 'author'])
             ->where('slug', $slug)
             ->firstOrFail();
 
-        // Buffer the read in cache (deduplicated per visitor, batch-flushed to DB later)
-        $viewCounter->record('post', $post->id, $request);
-
         return new PostResource($post);
+    }
+
+    /**
+     * Record a read. Called by the browser a few seconds after the page is
+     * shown, so SSR fetches and most crawlers never count as views.
+     */
+    public function view(Request $request, string $slug, ViewCounterService $viewCounter): Response
+    {
+        $id = Post::published()->where('slug', $slug)->value('id');
+
+        abort_if($id === null, 404);
+
+        $viewCounter->record('post', $id, $request);
+
+        return response()->noContent();
     }
 }

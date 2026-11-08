@@ -26,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->ip());
         });
 
+        // View beacons (20 req / min per IP)
+        RateLimiter::for('views', function (Request $request) {
+            return Limit::perMinute(20)->by($request->ip());
+        });
+
         // Live search endpoint (30 req / min per IP)
         RateLimiter::for('search', function (Request $request) {
             return Limit::perMinute(30)->by($request->ip());

@@ -15,6 +15,8 @@ if (error.value || !res.value?.data) {
 
 const project = computed(() => res.value!.data)
 
+useTrackView('projects', slug)
+
 const { settings } = useSiteSettings()
 
 usePageSeo({

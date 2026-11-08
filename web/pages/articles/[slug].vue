@@ -15,6 +15,8 @@ if (error.value || !postData.value?.data) {
 
 const post = computed(() => postData.value!.data)
 
+useTrackView('posts', slug)
+
 const formattedDate = computed(() => {
   if (!post.value.published_at) return null
   return new Intl.DateTimeFormat('en-US', {

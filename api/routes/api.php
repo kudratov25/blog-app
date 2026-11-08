@@ -41,6 +41,12 @@ Route::prefix('v1')->group(function () {
         Route::get('settings', [PublicSettingController::class, 'index']);
     });
 
+    // ─── Read Beacons (Rate-limited: 20 req/min per IP) ───────────────────────
+    Route::middleware('throttle:views')->group(function () {
+        Route::post('posts/{slug}/view', [PublicPostController::class, 'view']);
+        Route::post('projects/{slug}/view', [PublicProjectController::class, 'view']);
+    });
+
     // ─── Live Search (Rate-limited: 30 req/min) ───────────────────────────────
     Route::get('search', [SearchController::class, 'index'])
         ->middleware('throttle:search');
