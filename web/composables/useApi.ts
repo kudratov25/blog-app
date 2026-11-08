@@ -4,6 +4,8 @@ export function useApi() {
   const config = useRuntimeConfig()
   const token = useCookie<string | null>('auth_token')
   const user = useState<User | null>('auth_user', () => null)
+  // During SSR, pass the visitor's IP on so the API rate-limits per visitor
+  const forwarded = import.meta.server ? useRequestHeaders(['x-forwarded-for']) : {}
 
   const baseURL = import.meta.server
     ? (config.apiBase || 'http://nginx/api/v1')
@@ -12,6 +14,7 @@ export function useApi() {
   function getHeaders(): Record<string, string> {
     const headers: Record<string, string> = {
       Accept: 'application/json',
+      ...forwarded,
     }
     if (token.value) {
       headers.Authorization = `Bearer ${token.value}`
@@ -32,49 +35,24 @@ export function useApi() {
     }
   }
 
-  async function get<T>(url: string, params?: Record<string, any>): Promise<T> {
-    return await $fetch<T>(`${baseURL}${url}`, {
-      method: 'GET',
+  function request<T>(
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+    url: string,
+    opts: { body?: any, params?: Record<string, any> } = {},
+  ): Promise<T> {
+    return $fetch<T, string>(`${baseURL}${url}`, {
+      method,
+      ...opts,
       headers: getHeaders(),
-      params,
       onResponseError: handleUnauthorized,
     })
   }
 
-  async function post<T>(url: string, body?: any): Promise<T> {
-    return await $fetch<T>(`${baseURL}${url}`, {
-      method: 'POST',
-      headers: getHeaders(),
-      body,
-      onResponseError: handleUnauthorized,
-    })
-  }
-
-  async function put<T>(url: string, body?: any): Promise<T> {
-    return await $fetch<T>(`${baseURL}${url}`, {
-      method: 'PUT',
-      headers: getHeaders(),
-      body,
-      onResponseError: handleUnauthorized,
-    })
-  }
-
-  async function patch<T>(url: string, body?: any): Promise<T> {
-    return await $fetch<T>(`${baseURL}${url}`, {
-      method: 'PATCH',
-      headers: getHeaders(),
-      body,
-      onResponseError: handleUnauthorized,
-    })
-  }
-
-  async function del<T>(url: string): Promise<T> {
-    return await $fetch<T>(`${baseURL}${url}`, {
-      method: 'DELETE',
-      headers: getHeaders(),
-      onResponseError: handleUnauthorized,
-    })
-  }
+  const get = <T>(url: string, params?: Record<string, any>) => request<T>('GET', url, { params })
+  const post = <T>(url: string, body?: any) => request<T>('POST', url, { body })
+  const put = <T>(url: string, body?: any) => request<T>('PUT', url, { body })
+  const patch = <T>(url: string, body?: any) => request<T>('PATCH', url, { body })
+  const del = <T>(url: string) => request<T>('DELETE', url)
 
   return {
     baseURL,

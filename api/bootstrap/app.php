@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->throttleApi();
+
+        // Nuxt SSR calls the API from this server and forwards the visitor's
+        // IP in X-Forwarded-For; trust that header only from here.
+        $middleware->trustProxies(at: ['127.0.0.1', '::1', '159.89.22.11']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
