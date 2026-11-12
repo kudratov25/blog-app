@@ -129,6 +129,17 @@ html, body {
   ::selection {
     @apply bg-gray-900 text-white;
   }
+
+  /* @tailwindcss/forms hard-codes a white background on form fields, which
+   * shows as a white box in dark mode on fields without their own bg-* class.
+   * Use the theme's surface color instead (same specificity as the plugin,
+   * declared after it, so bg-* utilities on a field still win). */
+  [type='text'], input:where(:not([type])), [type='email'], [type='url'],
+  [type='password'], [type='number'], [type='date'], [type='datetime-local'],
+  [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'],
+  [type='checkbox'], [type='radio'], [multiple], textarea, select {
+    background-color: rgb(var(--c-white));
+  }
 }
 
 @layer components {
