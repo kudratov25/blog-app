@@ -91,7 +91,7 @@ git log -1 --format='%h %s'
 
 step "API: dependencies, migrations, caches"
 cd "$APP/api"
-$PHP /usr/bin/composer install --no-dev --optimize-autoloader --no-interaction --quiet
+$PHP "$(command -v composer)" install --no-dev --optimize-autoloader --no-interaction --quiet
 chmod -R u=rwX,go=rX vendor bootstrap public
 chown -R www-data:www-data storage bootstrap/cache
 $ARTISAN migrate --force

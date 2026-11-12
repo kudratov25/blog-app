@@ -20,8 +20,7 @@ class ProjectController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $query = Project::with(['cover', 'technologies'])
-            ->orderBy('display_order', 'asc')
-            ->latest('id');
+            ->newestFirst();
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);

@@ -17,8 +17,7 @@ class ProjectController extends Controller
     {
         $query = Project::published()
             ->with(['cover', 'technologies'])
-            ->orderBy('display_order', 'asc')
-            ->latest('id');
+            ->newestFirst();
 
         if ($request->boolean('featured')) {
             $query->where('is_featured', true);

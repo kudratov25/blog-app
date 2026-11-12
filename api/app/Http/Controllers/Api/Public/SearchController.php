@@ -44,7 +44,7 @@ class SearchController extends Controller
                       ->orWhere('summary', 'like', "%{$q}%")
                       ->orWhere('body', 'like', "%{$q}%");
             })
-            ->orderBy('display_order', 'asc')
+            ->newestFirst()
             ->limit(6)
             ->get();
 

@@ -60,4 +60,15 @@ class Project extends Model
     {
         return $query->where('status', 'published');
     }
+
+    /**
+     * Newest project first (by start date), undated ones last, then newest added.
+     */
+    public function scopeNewestFirst(Builder $query): Builder
+    {
+        return $query
+            ->orderByRaw('started_at IS NULL')
+            ->orderByDesc('started_at')
+            ->orderByDesc('id');
+    }
 }

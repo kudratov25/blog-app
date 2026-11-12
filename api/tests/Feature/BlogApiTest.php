@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -138,5 +139,21 @@ class BlogApiTest extends TestCase
             'email'  => 'jane@example.com',
             'status' => 'unread',
         ]);
+    }
+
+    public function test_public_projects_are_listed_newest_first(): void
+    {
+        $make = fn (string $slug, ?string $started) => Project::create([
+            'title' => $slug, 'slug' => $slug, 'summary' => 's',
+            'status' => 'published', 'started_at' => $started,
+        ]);
+        $make('old', '2024-02-01');
+        $make('undated', null);
+        $make('newest', '2026-11-04');
+        $make('middle', '2026-01-01');
+
+        $this->getJson('/api/v1/projects')
+            ->assertOk()
+            ->assertJsonPath('data.*.slug', ['newest', 'middle', 'old', 'undated']);
     }
 }
